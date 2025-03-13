@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { TokenContext } from "../context/TokenContext";
 
 const CartPage = () => {
   // ocupar el context para obtener el carrito
   const { carts, setCarts } = useContext(CartContext);
+  const { token } = useContext(TokenContext);
 
   const increaseQuantity = (id) => {
     setCarts(
@@ -62,7 +64,10 @@ const CartPage = () => {
       </ul>
       <div className="d-flex justify-content-between w-10 my-3">
         <h3 className="fs-2 me-4">Total: ${total.toLocaleString()}</h3>
-        <button className="btn btn-dark btn-lg">Pagar</button>
+
+        <button className="btn btn-dark btn-lg" disabled={!token}>
+          Pagar
+        </button>
       </div>
     </div>
   );

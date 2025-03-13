@@ -16,7 +16,7 @@ import { TokenContext } from "../context/TokenContext";
 
 const NavbarApp = () => {
   const { carts } = useContext(CartContext);
-  const { token } = useContext(TokenContext);
+  const { token, logout } = useContext(TokenContext);
   const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
   //const token = false;
   return (
@@ -60,6 +60,7 @@ const NavbarApp = () => {
               <Link
                 to="/login"
                 className="nav-link border border-white rounded me-2"
+                onClick={logout}
               >
                 <FaSignOutAlt /> Logout
               </Link>

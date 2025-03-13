@@ -1,9 +1,9 @@
+import { useContext } from "react";
 import { Container, Card, Button } from "react-bootstrap";
+import { TokenContext } from "../context/TokenContext";
 
 const ProfilePage = () => {
-  const handleLogout = () => {
-    console.log("Logout");
-  };
+  const { logout } = useContext(TokenContext);
 
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100">
@@ -13,7 +13,7 @@ const ProfilePage = () => {
           <Card.Text>
             <strong>Email:</strong> jdarderes@gmail.com
           </Card.Text>
-          <Button variant="danger" className="w-100" onClick={handleLogout}>
+          <Button variant="danger" className="w-100" onClick={logout}>
             Logout
           </Button>
         </Card.Body>
