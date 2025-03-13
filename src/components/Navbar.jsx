@@ -12,11 +12,13 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { CartContext } from "../context/CartContext";
+import { TokenContext } from "../context/TokenContext";
 
 const NavbarApp = () => {
   const { carts } = useContext(CartContext);
+  const { token } = useContext(TokenContext);
   const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
-  const token = false;
+  //const token = false;
   return (
     <Navbar
       className="bg-body-tertiary text-white "

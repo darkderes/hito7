@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { useContext } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
 import {
   NavbarApp,
@@ -12,25 +13,33 @@ import {
   Footer,
 } from "./page/index";
 
-// import CardProvider from "./context/CardContext";
-import AppProviders from "./context/AppProviders";
+import { TokenContext } from "./context/TokenContext";
 
 function App() {
+  const { token } = useContext(TokenContext);
   return (
     <>
       <BrowserRouter>
-        <AppProviders>
-          <NavbarApp />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/Register" element={<RegisterPage />} />
-            <Route path="/Login" element={<LoginPage />} />
-            <Route path="/Cart" element={<CartPage />} />
-            <Route path="/Pizza/p001" element={<PizzaPage />} />
-            <Route path="/Profile" element={<ProfilePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </AppProviders>
+        <NavbarApp />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/Register"
+            element={token ? <Navigate to="/" /> : <RegisterPage />}
+          />
+          <Route
+            path="/Login"
+            element={token ? <Navigate to="/" /> : <LoginPage />}
+          />
+          <Route path="/Cart" element={<CartPage />} />
+          <Route path="/Pizza/p001" element={<PizzaPage />} />
+          <Route
+            path="/Profile"
+            element={token ? <ProfilePage /> : <Navigate to="/Login" />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+
         <Footer />
       </BrowserRouter>
       <ToastContainer autoClose={1000} />

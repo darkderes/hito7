@@ -1,11 +1,14 @@
 import { CartProvider } from "./CartContext";
 import { PizzaProvider } from "./PizzaContext";
+import { TokenProvider } from "./TokenContext";
 
 const AppProviders = ({ children }) => {
   return (
-    <CartProvider>
-      <PizzaProvider>{children}</PizzaProvider>
-    </CartProvider>
+    <TokenProvider>
+      <CartProvider>
+        <PizzaProvider>{children}</PizzaProvider>
+      </CartProvider>
+    </TokenProvider>
   );
 };
 
