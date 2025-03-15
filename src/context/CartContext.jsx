@@ -42,6 +42,8 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -49,6 +51,7 @@ export const CartProvider = ({ children }) => {
         setCarts,
         addToCart,
         decreaseQuantity,
+        total,
       }}
     >
       {children}

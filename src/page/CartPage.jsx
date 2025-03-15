@@ -4,8 +4,7 @@ import { TokenContext } from "../context/TokenContext";
 
 const CartPage = () => {
   // ocupar el context para obtener el carrito
-  const { carts, setCarts, addToCart, decreaseQuantity } =
-    useContext(CartContext);
+  const { carts, addToCart, decreaseQuantity, total } = useContext(CartContext);
   const { token } = useContext(TokenContext);
 
   const handleAddToCart = (id, name, img, price) => {
@@ -16,38 +15,34 @@ const CartPage = () => {
     decreaseQuantity(id);
   };
 
-  const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
-
   return (
     <div className=" d-flex align-items-center d-flex flex-column">
       <h2 className="my-5">Detalles del pedido:</h2>
       <ul>
-        {carts.map((pizza) => (
-          <li key={pizza.id} className="mb-3 d-flex align-items-center">
+        {carts.map(({ id, name, img, price, qty }) => (
+          <li key={id} className="mb-3 d-flex align-items-center">
             <img
-              src={pizza.img}
-              alt={pizza.name}
+              src={img}
+              alt={name}
               width="100"
               height="100"
               className="me-3 rounded"
             />
             <div className="d-flex flex-column flex-grow-1">
-              <p className="fs-4 mb-1 me-5 fw-bold">{pizza.name}</p>
+              <p className="fs-4 mb-1 me-5 fw-bold">{name}</p>
             </div>
             <div className="d-flex align-items-center">
-              <p className="fs-4 mb-1 me-4">${pizza.price.toLocaleString()}</p>
+              <p className="fs-4 mb-1 me-4">${price.toLocaleString()}</p>
               <button
                 className="btn btn-outline-danger"
-                onClick={() => handledecreaseQuantity(pizza.id)}
+                onClick={() => handledecreaseQuantity(id)}
               >
                 -
               </button>
-              <span className="mx-2">{pizza.qty}</span>
+              <span className="mx-2">{qty}</span>
               <button
                 className="btn btn-outline-info"
-                onClick={() =>
-                  handleAddToCart(pizza.id, pizza.name, pizza.img, pizza.price)
-                }
+                onClick={() => handleAddToCart(id, name, img, price)}
               >
                 +
               </button>

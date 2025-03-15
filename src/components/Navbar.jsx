@@ -15,9 +15,9 @@ import { CartContext } from "../context/CartContext";
 import { TokenContext } from "../context/TokenContext";
 
 const NavbarApp = () => {
-  const { carts } = useContext(CartContext);
+  const { total } = useContext(CartContext);
   const { token, logout } = useContext(TokenContext);
-  const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
+  // const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
   //const token = false;
   return (
     <Navbar
