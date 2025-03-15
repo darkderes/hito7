@@ -33,7 +33,7 @@ function App() {
           />
           <Route path="/Cart" element={<CartPage />} />
 
-          <Route path="/Pizza/:id" element={<PizzaPage />} />
+          <Route path="/Pizza/:ids" element={<PizzaPage />} />
           <Route
             path="/Profile"
             element={token ? <ProfilePage /> : <Navigate to="/Login" />}

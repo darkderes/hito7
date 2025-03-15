@@ -4,25 +4,16 @@ import { TokenContext } from "../context/TokenContext";
 
 const CartPage = () => {
   // ocupar el context para obtener el carrito
-  const { carts, setCarts } = useContext(CartContext);
+  const { carts, setCarts, addToCart, decreaseQuantity } =
+    useContext(CartContext);
   const { token } = useContext(TokenContext);
 
-  const increaseQuantity = (id) => {
-    setCarts(
-      carts.map((pizza) =>
-        pizza.id === id ? { ...pizza, qty: pizza.qty + 1 } : pizza
-      )
-    );
+  const handleAddToCart = (id, name, img, price) => {
+    addToCart({ id, name, img, price });
   };
 
-  const decreaseQuantity = (id) => {
-    setCarts(
-      carts
-        .map((pizza) =>
-          pizza.id === id ? { ...pizza, qty: pizza.qty - 1 } : pizza
-        )
-        .filter((pizza) => pizza.id !== id || pizza.qty > 0)
-    );
+  const handledecreaseQuantity = (id) => {
+    decreaseQuantity(id);
   };
 
   const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
@@ -47,14 +38,16 @@ const CartPage = () => {
               <p className="fs-4 mb-1 me-4">${pizza.price.toLocaleString()}</p>
               <button
                 className="btn btn-outline-danger"
-                onClick={() => decreaseQuantity(pizza.id)}
+                onClick={() => handledecreaseQuantity(pizza.id)}
               >
                 -
               </button>
               <span className="mx-2">{pizza.qty}</span>
               <button
                 className="btn btn-outline-info"
-                onClick={() => increaseQuantity(pizza.id)}
+                onClick={() =>
+                  handleAddToCart(pizza.id, pizza.name, pizza.img, pizza.price)
+                }
               >
                 +
               </button>

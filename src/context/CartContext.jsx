@@ -32,12 +32,23 @@ export const CartProvider = ({ children }) => {
     toast.success("Pizza añadida al carrito!");
   };
 
+  const decreaseQuantity = (id) => {
+    setCarts(
+      carts
+        .map((pizza) =>
+          pizza.id === id ? { ...pizza, qty: pizza.qty - 1 } : pizza
+        )
+        .filter((pizza) => pizza.id !== id || pizza.qty > 0)
+    );
+  };
+
   return (
     <CartContext.Provider
       value={{
         carts,
         setCarts,
         addToCart,
+        decreaseQuantity,
       }}
     >
       {children}
