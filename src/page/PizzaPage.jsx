@@ -1,11 +1,13 @@
 import { useEffect, useContext } from "react";
 import { PizzaContext } from "../context/PizzaContext";
+import { useParams } from "react-router";
 const PizzaPage = () => {
   const { pizzas, fetchPizzas } = useContext(PizzaContext);
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchPizzas("http://localhost:5000/api/pizzas/p001");
-  }, [fetchPizzas]);
+    fetchPizzas(`http://localhost:5000/api/pizzas/${id}`);
+  }, [fetchPizzas, id]);
 
   return (
     <div className="container mt-5">
