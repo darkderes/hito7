@@ -40,6 +40,7 @@ export const CartProvider = ({ children }) => {
         )
         .filter((pizza) => pizza.id !== id || pizza.qty > 0)
     );
+    toast.error("Pizza eliminada del carrito!");
   };
 
   const total = carts.reduce((acc, pizza) => acc + pizza.price * pizza.qty, 0);
